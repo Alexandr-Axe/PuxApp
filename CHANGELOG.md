@@ -4,10 +4,11 @@ Všechny změny v projektu budou evidovány v tomto souboru.
 
 Projekt používá [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.2.0] - 14.06.2026
 
 ### Added
-- Zatím nic.
+- Přidána statická HTML stránka ve složce `wwwroot`.
+- Přidán základní formulář s textboxem, tlačítkem a místem pro výsledek.
 
 ## [0.1.0] - 14.06.2026
 
