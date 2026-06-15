@@ -4,95 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PuxApp</title>
+    <link rel="stylesheet" href="css/site.css">
+    <script defer src="js/app.js"></script>
 </head>
 <body>
     <h1>PuxApp</h1>
 
-    <form id="analyseForm">
-        <div>
-            <label for="directoryPath">Cesta k adresáři:</label>
+    <main class="container">
+        <h1>Analýza adresáře</h1>
+
+        <div class="form-group">
+            <label for="pathInput">Cesta k adresáři</label>
+            <input id="pathInput" type="text" placeholder="Např. C:\Users">
         </div>
 
-        <div>
-            <input type="text"
-                   id="directoryPath"
-                   name="directoryPath"
-                   placeholder="C:\Users" />
-        </div>
+        <button id="analyseButton" type="button">Analyzovat</button>
 
-        <div>
-            <button type="submit">Analyzovat</button>
-        </div>
-    </form>
-
-    <hr />
-
-    <section>
-        <h2>Výsledek analýzy</h2>
-        <ul id="result"></ul>
-    </section>
-
-    <script>
-        const form = document.getElementById("analyseForm");
-        const pathInput = document.getElementById("directoryPath");
-        const result = document.getElementById("result");
-
-        form.addEventListener("submit", async function (event) {
-            event.preventDefault();
-
-            const path = pathInput.value.trim();
-            result.innerHTML = "";
-
-            if (!path) {
-                const li = document.createElement("li");
-                li.textContent = "Zadejte cestu k adresáři.";
-                result.appendChild(li);
-                return;
-            }
-
-            try {
-                const response = await fetch("/api/analyse", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ path })
-                });
-
-                const data = await response.json();
-
-                if (!response.ok) {
-                    const li = document.createElement("li");
-                    li.textContent = `Chyba: ${data.error}`;
-                    result.appendChild(li);
-                    return;
-                }
-
-                if (!Array.isArray(data)) {
-                    const li = document.createElement("li");
-                    li.textContent = "Backend nevrátil očekávaný seznam souborů.";
-                    result.appendChild(li);
-                    return;
-                }
-
-                if (data.length === 0) {
-                    const li = document.createElement("li");
-                    li.textContent = "Adresář neobsahuje žádné soubory.";
-                    result.appendChild(li);
-                    return;
-                }
-
-                data.forEach(file => {
-                    const li = document.createElement("li");
-                    li.textContent = `${file.name} (${file.fullPath})`;
-                    result.appendChild(li);
-                });
-            } catch {
-                const li = document.createElement("li");
-                li.textContent = "Nepodařilo se vytvořit připojení s backendem.";
-                result.appendChild(li);
-            }
-        });
-    </script>
+        <section id="result" class="result"></section>
+    </main>
 </body>
 </html>
