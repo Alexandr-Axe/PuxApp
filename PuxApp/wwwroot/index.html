@@ -8,14 +8,66 @@
 <body>
     <h1>PuxApp</h1>
 
-    <label for="directoryPath">Cesta k adresáři:</label>
-    <input type="text" id="directoryPath" placeholder="C:\Temp" />
+    <form id="analyseForm">
+        <div>
+            <label for="directoryPath">Cesta k adresáři:</label>
+        </div>
 
-    <button type="button">Analyzovat</button>
+        <div>
+            <input type="text"
+                   id="directoryPath"
+                   name="directoryPath"
+                   placeholder="C:\Users" />
+        </div>
 
-    <h2>Výsledek</h2>
-    <div id="result">
-        Zatím nic analyzováno.
-    </div>
+        <div>
+            <button type="submit">Analyzovat</button>
+        </div>
+    </form>
+
+    <hr />
+
+    <section>
+        <h2>Výsledek analýzy</h2>
+        <div id="result">Zatím nebyla spuštěna analýza.</div>
+    </section>
+
+    <script>
+        const form = document.getElementById("analyseForm");
+        const pathInput = document.getElementById("directoryPath");
+        const result = document.getElementById("result");
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const path = pathInput.value.trim();
+
+            if (!path) {
+                result.textContent = "Zadejte cestu k adresáři.";
+                return;
+            }
+
+            try {
+                const response = await fetch("/api/analyse", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ path })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    result.textContent = `Chyba: ${data.error}`;
+                    return;
+                }
+
+                result.textContent = `${data.message} Zadaná cesta: ${data.path}`;
+            } catch {
+                result.textContent = "Nepodařilo se vytvořit připojení s backendem.";
+            }
+        });
+    </script>
 </body>
 </html>
