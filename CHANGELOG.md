@@ -4,6 +4,11 @@ Všechny změny v projektu budou evidovány v tomto souboru.
 
 Projekt používá [Semantic Versioning](https://semver.org/).
 
+## [0.4.1] - 15.06.2026
+
+## Přidáno
+- Refaktorace kódu pro lepší strukturu a čitelnost.
+
 ## [0.4.0] - 15.06.2026
 
 ## Přidáno
