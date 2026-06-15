@@ -15,6 +15,8 @@ namespace PuxApp.Extensions
         public static void MapApplicationEndpoints(this WebApplication app)
         {
             app.MapPost("/api/analyse", HandleAnalyseRequest);
+
+            app.MapGet("/ping", () => Results.Ok("pong"));
         }
 
         /// <summary>
@@ -23,12 +25,13 @@ namespace PuxApp.Extensions
         /// <param name="request">Data zadaná uživatelem z webu.</param>
         /// <param name="scanner">Služba pro načtení obsahu adresáře.</param>
         /// <returns>HTTP odpověď s výsledkem analýzy.</returns>
-        static IResult HandleAnalyseRequest(AnalyseRequest request, DirectoryScanner scanner)
+        static IResult HandleAnalyseRequest(AnalyseRequest request, DirectoryAnalysisService analysisService)
         {
             try
             {
-                var files = scanner.ReturnFilesFromDirectory(request.Path);
-                return Results.Ok(files);
+                var result = analysisService.Analyse(request.Path);
+
+                return Results.Ok(result);
             }
             catch (Exception ex)
             {

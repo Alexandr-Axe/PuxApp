@@ -4,6 +4,14 @@ Všechny změny v projektu budou evidovány v tomto souboru.
 
 Projekt používá [Semantic Versioning](https://semver.org/).
 
+## [0.5.0] - 15.06.2026
+
+### Přidáno
+- Služba pro analýzu adresáře, která porovnává aktuální snapshot s předchozím
+  a detekuje nové, změněné a smazané soubory a podadresáře.
+- API endpoint `POST /api/analyse`, který vrací strukturovaný JSON s detekovanými změnami
+  a verzemi souborů.
+
 ## [0.4.1] - 15.06.2026
 
 ## Přidáno

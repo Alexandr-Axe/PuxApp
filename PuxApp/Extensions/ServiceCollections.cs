@@ -16,6 +16,8 @@ namespace PuxApp.Extensions
             builder.Services.AddSingleton<DirectoryScanner>();
             builder.Services.AddSingleton<FileHashService>();
             builder.Services.AddSingleton<SnapshotStore>();
+            builder.Services.AddSingleton<DirectoryAnalysisService>();
+            builder.Services.AddSingleton<DirectoryPathValidator>();
         }
     }
 }
