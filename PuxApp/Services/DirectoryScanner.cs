@@ -14,13 +14,9 @@ namespace PuxApp.Services
         /// <returns>Seznam nalezených souborů</returns>
         /// <exception cref="ArgumentException">Zadaná cesta nesmí být prázdná.</exception>
         /// <exception cref="DirectoryNotFoundException">Zadaná cesta je neplatná.</exception>
-        public List<FileItem> ReturnFilesFromDirectory(string path) 
+        public List<FileItem> ReturnFilesFromDirectory(string path)
         {
-            if (string.IsNullOrWhiteSpace(path))
-                throw new ArgumentException("Cesta nesmí být prázdná.");
-
-            if (!Directory.Exists(path))
-                throw new DirectoryNotFoundException("Zadaný adresář neexistuje.");
+            ValidatePath(path);
 
             return Directory
                 .GetFiles(path)
@@ -30,6 +26,21 @@ namespace PuxApp.Services
                     FullPath = file
                 })
                 .ToList();
+        }
+
+        /// <summary>
+        /// Ověří, zda je zadaná cesta platná a zda adresář existuje.
+        /// </summary>
+        /// <param name="path">Cesta k adresáři.</param>
+        /// <exception cref="ArgumentException">Zadaná cesta nesmí být prázdná.</exception>
+        /// <exception cref="DirectoryNotFoundException">Zadaná cesta je neplatná.</exception>
+        private static void ValidatePath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                throw new ArgumentException("Cesta nesmí být prázdná.");
+
+            if (!Directory.Exists(path))
+                throw new DirectoryNotFoundException("Zadaný adresář neexistuje.");
         }
     }
 }
