@@ -29,7 +29,7 @@
 
     <section>
         <h2>Výsledek analýzy</h2>
-        <div id="result">Zatím nebyla spuštěna analýza.</div>
+        <ul id="result"></ul>
     </section>
 
     <script>
@@ -41,9 +41,12 @@
             event.preventDefault();
 
             const path = pathInput.value.trim();
+            result.innerHTML = "";
 
             if (!path) {
-                result.textContent = "Zadejte cestu k adresáři.";
+                const li = document.createElement("li");
+                li.textContent = "Zadejte cestu k adresáři.";
+                result.appendChild(li);
                 return;
             }
 
@@ -59,13 +62,35 @@
                 const data = await response.json();
 
                 if (!response.ok) {
-                    result.textContent = `Chyba: ${data.error}`;
+                    const li = document.createElement("li");
+                    li.textContent = `Chyba: ${data.error}`;
+                    result.appendChild(li);
                     return;
                 }
 
-                result.textContent = `${data.message} Zadaná cesta: ${data.path}`;
+                if (!Array.isArray(data)) {
+                    const li = document.createElement("li");
+                    li.textContent = "Backend nevrátil očekávaný seznam souborů.";
+                    result.appendChild(li);
+                    return;
+                }
+
+                if (data.length === 0) {
+                    const li = document.createElement("li");
+                    li.textContent = "Adresář neobsahuje žádné soubory.";
+                    result.appendChild(li);
+                    return;
+                }
+
+                data.forEach(file => {
+                    const li = document.createElement("li");
+                    li.textContent = `${file.name} (${file.fullPath})`;
+                    result.appendChild(li);
+                });
             } catch {
-                result.textContent = "Nepodařilo se vytvořit připojení s backendem.";
+                const li = document.createElement("li");
+                li.textContent = "Nepodařilo se vytvořit připojení s backendem.";
+                result.appendChild(li);
             }
         });
     </script>

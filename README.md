@@ -4,7 +4,7 @@ ASP.NET Core aplikace pro sledování změn v lokálním adresáři.
 
 ## Verze
 
-Aktuální verze: `0.3.0`
+Aktuální verze: `0.4.0`
 
 Podrobnosti o změnách jsou v [CHANGELOG.md](./CHANGELOG.md).
 

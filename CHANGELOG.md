@@ -4,6 +4,13 @@ Všechny změny v projektu budou evidovány v tomto souboru.
 
 Projekt používá [Semantic Versioning](https://semver.org/).
 
+## [0.4.0] - 15.06.2026
+
+## Přidáno
+- Přidána služba `DirectoryScanner` pro načítání souborů z vybraného adresáře.
+- Přidán model `FileItem` pro přenos informací o nalezených souborech.
+- Přidáno zobrazení seznamu nalezených souborů ve webovém rozhraní.
+
 ## [0.3.0] - 15.06.2026
 
 ### Přidáno
