@@ -4,6 +4,20 @@ Všechny změny v projektu budou evidovány v tomto souboru.
 
 Projekt používá [Semantic Versioning](https://semver.org/).
 
+## [1.0.0] - 15.06.2026
+
+### Přidáno
+- Webové rozhraní pro zadání cesty k adresáři.
+- Napojení frontendu na endpoint `/api/analyse`.
+- Zobrazení nových, změněných a odstraněných souborů.
+- Zobrazení odstraněných podadresářů.
+- Zobrazení verzí souborů.
+- Soubor `TESTING.md` s testovacími scénáři.
+
+### Změněno
+- Frontend byl rozdělen do samostatných souborů `index.html`, `app.js` a `site.css`.
+- Dokumentace projektu byla doplněna o README a changelog.
+
 ## [0.5.0] - 15.06.2026
 
 ### Přidáno
