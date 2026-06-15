@@ -14,6 +14,8 @@ namespace PuxApp.Extensions
         public static void AddApplicationServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddSingleton<DirectoryScanner>();
+            builder.Services.AddSingleton<FileHashService>();
+            builder.Services.AddSingleton<SnapshotStore>();
         }
     }
 }
